@@ -9,6 +9,7 @@ function Directory(props) {
       <ListItem
         title={item.name}
         subtitle={item.description}
+        onPress={() => props.onPress(item.id)}
         leftAvatar={{ source: require('./images/react-lake.jpg') }}
       />
     );
@@ -18,6 +19,8 @@ function Directory(props) {
     <FlatList
       data={props.campsites}
       renderItem={renderDirectoryItem}
+
+      // keyExtractor expects a string, therefor, we have to convert the id from number to string
       keyExtractor={item => item.id.toString()}
     />
   );
