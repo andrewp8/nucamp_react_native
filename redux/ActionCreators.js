@@ -14,6 +14,7 @@ export const fetchComments = () => dispatch => {
       }
     },
       error => {
+        console.log(JSON.stringify(error))
         const errMess = new Error(error.message);
         throw errMess;
       })
