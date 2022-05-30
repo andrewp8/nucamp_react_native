@@ -37,26 +37,6 @@ class Reservation extends Component {
 	}
 
 	render() {
-		const searchAlert = () =>
-			Alert.alert(
-				'Begin Search?',
-				'Number of Campers: ' +
-				this.state.campers,
-				'Hike-In? ' + this.state.hikeIn,
-				'Date: ' + this.state.date.toLocaleDateString('en-US'),
-				[
-					{
-						text: 'Cancel',
-						onPress: () => this.resetForm(),
-						style: 'cancel'
-					},
-					{
-						text: 'OK',
-						onPress: () => this.resetForm()
-					}
-				],
-				{ cancelable: false }
-			)
 		return (
 			<ScrollView>
 				<Animatable.View animation="zoomInUp" duration={2000} delay={1000}>
@@ -108,27 +88,26 @@ class Reservation extends Component {
 					)}
 					<View style={styles.formRow}>
 						<Button
-							onPress={searchAlert}
-							// 	Alert.alert(
-							// 		'Begin Search?',
-							// 		// 'Number of Campers: ' +
-							// 		// this.state.campers,
-							// 		// 'Hike-In? ' + this.state.hikeIn,
-							// 		// 'Date: ' + this.state.date.toLocaleDateString('en-US'),
-							// 		[
-							// 			{
-							// 				text: 'Cancel',
-							// 				onPress: () => console.log('cancel'),
-							// 				style: 'cancel'
-							// 			},
-							// 			{
-							// 				text: 'OK',
-							// 				onPress: () => console.log('OK')
-							// 			}
-							// 		],
-							// 		{ cancelable: false }
-							// 	);
-							// }}
+							onPress={() =>
+								Alert.alert(
+									'Begin Search?',
+									'Number of Campers: ' + this.state.campers,
+									'Hike-In? ' + this.state.hikeIn,
+									// 'Date: ' + this.state.date.toLocaleDateString('en-US'),
+									[
+										{
+											text: 'Cancel',
+											onPress: () => this.resetForm(),
+											style: 'cancel'
+										},
+										{
+											text: 'OK',
+											onPress: () => this.resetForm(),
+										}
+									],
+									{ cancelable: false }
+								)
+							}
 							title='Search'
 							color='#5637DD'
 							accessibilityLabel='Tap me to search for available campsites to reserve'
