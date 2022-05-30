@@ -101,11 +101,6 @@ class Reservation extends Component {
 											style: 'cancel'
 										},
 										{
-											text: 'Test',
-											onPress: () => console.log(this.state.hikeIn + "\n" + this.state.date.toLocaleDateString('en-US')),
-											style: 'cancel'
-										},
-										{
 											text: 'OK',
 											onPress: () => this.resetForm(),
 										}
