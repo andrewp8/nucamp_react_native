@@ -22,6 +22,14 @@ class Login extends Component {
 	handleLogin() {
 		console.log(JSON.stringify(this.state));
 		if (this.state.remember) {
+			/*
+				In this case, if the user CLICKED the Remember Me button then
+					1) SecureStore.setItemAsync will create a KEY and save the key in the SecureStore under a name called 'userinfo'
+					2) 'userinfo' will be save in the SecureStore under STRING form by being converted using JSON.stringify for human readable purpose
+						Ex: "{"username": "username", "password": "password"}"
+					3) Once SercureStore has a key name 'userinfo' (componentDidMount's purpose is to check if 'userinfo' was initialized/render at least once ), whenever the key need to be restrived, SecureStore.getItemAsync will does the job by convert the key from STRING back to an OBJECT by using JSON.parse for Javascript reading purpose
+					4) If the user decided to not remember the login info by DON'T CLICK or UNCLICKED the Remember Me button, then SecureStore.deleteItemAsync will delete the 'userinfo' in the SecureStore  
+			*/
 			SecureStore.setItemAsync(
 				'userinfo',
 				JSON.stringify({

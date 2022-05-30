@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Animatable from 'react-native-animatable';
-
+import * as Notifications from 'expo-notifications';
 
 class Reservation extends Component {
 	constructor(props) {
@@ -34,6 +34,35 @@ class Reservation extends Component {
 			date: new Date(),
 			showCalendar: false
 		});
+	}
+
+	async presentLocalNotification(date) {
+		function sendNotification() {
+			Notifications.setNotificationHandler({
+				handleNotification: async () => ({
+					shouldShowAlert: true
+				})
+			});
+
+			Notifications.scheduleNotificationAsync({
+				content: {
+					title: 'Your Campsite Reservation Search',
+					body: `Search for ${date} requested`
+				},
+				trigger: null
+			});
+		}
+
+		// The 'await' keyword is a  Javascript ES8 keyword that can only be used inside an 'async' function.
+		// The 'await' keyword is similar in concept to a 'then' method. Use it followed by a 'promise'
+		// *** The only time you can use the 'await' keyword is inside an 'async' function, followed by a 'promise' 
+		let permissions = await Notifications.getPermissionsAsync();
+		if (!permissions.granted) {
+			permissions = await Notifications.requestPermissionsAsync();
+		}
+		if (permissions.granted) {
+			sendNotification();
+		}
 	}
 
 	render() {
@@ -91,9 +120,12 @@ class Reservation extends Component {
 							onPress={() =>
 								Alert.alert(
 									'Begin Search?',
-									'Number of Campers: ' + this.state.campers,
+									// 'Number of Campers: ' + this.state.campers,
 									// 'Hike-In? ' + this.state.hikeIn,
 									// 'Date: ' + this.state.date.toLocaleDateString('en-US'),
+									'Number of Campers: ' + this.state.campers +
+									'\n\nHike-In? ' + this.state.hikeIn +
+									'\n\nDate: ' + this.state.date.toLocaleDateString('en-US'),
 									[
 										{
 											text: 'Cancel',
@@ -102,7 +134,10 @@ class Reservation extends Component {
 										},
 										{
 											text: 'OK',
-											onPress: () => this.resetForm(),
+											onPress: () => {
+												this.presentLocalNotification(this.state.date.toLocaleDateString('en-US'));
+												this.resetForm();
+											}
 										}
 									],
 									{ cancelable: false }
