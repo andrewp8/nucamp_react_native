@@ -56,6 +56,8 @@ class Reservation extends Component {
 		// The 'await' keyword is a  Javascript ES8 keyword that can only be used inside an 'async' function.
 		// The 'await' keyword is similar in concept to a 'then' method. Use it followed by a 'promise'
 		// *** The only time you can use the 'await' keyword is inside an 'async' function, followed by a 'promise' 
+
+		// always have to get the device permission to access settings/features
 		let permissions = await Notifications.getPermissionsAsync();
 		if (!permissions.granted) {
 			permissions = await Notifications.requestPermissionsAsync();

@@ -107,8 +107,9 @@ function RenderCampsite(props) {
 		Share.share({
 			title,
 			message: `${title}: ${message} ${url}`,
-			url
+			url: url
 		}, {
+			// dialogTitle for Android only
 			dialogTitle: 'Share ' + title
 		})
 	};
