@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, ScrollView } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
-import * as MailComposer from 'react-mail-composer';
+import * as MailComposer from 'expo-mail-composer';
 class Contact extends Component {
 
   static navigationOptions = {
@@ -35,7 +35,7 @@ class Contact extends Component {
               buttonStyle={{ backgroundColor: '#5637DD', margin: 40 }}
               icon={
                 <Icon
-                  name='envelop-o'
+                  name='envelope-o'
                   type='font-awesome'
                   color='#fff'
                   iconStyle={{ marginRight: 10 }}
