@@ -24,7 +24,31 @@ class Reservation extends Component {
 	}
 
 	handleReservation() {
-		console.log(JSON.stringify(this.state));
+		const message = `Number of Campers: ${this.state.campers}
+										\nHike-In? ${this.state.hikeIn}
+										\nDate: ${this.state.date.toLocaleDateString('en-US')}`;
+		Alert.alert(
+			'Begin Search?',
+			message,
+			[
+				{
+					text: 'Cancel',
+					onPress: () => {
+						console.log('Reservation Search Canceled');
+						this.resetForm();
+					},
+					style: 'cancel'
+				},
+				{
+					text: 'OK',
+					onPress: () => {
+						this.presentLocalNotification(this.state.date.toLocaleDateString('en-US'));
+						this.resetForm();
+					}
+				}
+			],
+			{ cancelable: false }
+		);
 	}
 
 	resetForm() {
@@ -119,32 +143,7 @@ class Reservation extends Component {
 					)}
 					<View style={styles.formRow}>
 						<Button
-							onPress={() =>
-								Alert.alert(
-									'Begin Search?',
-									// 'Number of Campers: ' + this.state.campers,
-									// 'Hike-In? ' + this.state.hikeIn,
-									// 'Date: ' + this.state.date.toLocaleDateString('en-US'),
-									'Number of Campers: ' + this.state.campers +
-									'\n\nHike-In? ' + this.state.hikeIn +
-									'\n\nDate: ' + this.state.date.toLocaleDateString('en-US'),
-									[
-										{
-											text: 'Cancel',
-											onPress: () => this.resetForm(),
-											style: 'cancel'
-										},
-										{
-											text: 'OK',
-											onPress: () => {
-												this.presentLocalNotification(this.state.date.toLocaleDateString('en-US'));
-												this.resetForm();
-											}
-										}
-									],
-									{ cancelable: false }
-								)
-							}
+							onPress={() => this.handleReservation()}
 							title='Search'
 							color='#5637DD'
 							accessibilityLabel='Tap me to search for available campsites to reserve'
@@ -174,3 +173,4 @@ const styles = StyleSheet.create({
 });
 
 export default Reservation;
+

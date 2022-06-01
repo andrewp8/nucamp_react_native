@@ -167,6 +167,7 @@ class RegisterTab extends Component {
 
 		if (cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
 			const capturedImage = await ImagePicker.launchCameraAsync({
+				// This enable edit/rotate/crop capturedImage
 				allowsEditing: true,
 				aspect: [1, 1]
 			});
