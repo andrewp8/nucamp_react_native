@@ -188,6 +188,7 @@ class RegisterTab extends Component {
 		);
 		console.log(processedImage);
 		this.setState({ imageUrl: processedImage.uri });
+		const saveProcessedImageToLibrary = await MediaLibrary.saveToLibraryAsync(processedImage.uri)
 	}
 
 	getImageFromGallery = async () => {
